@@ -1,0 +1,47 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Fonts\Campton-Bold.otf" />
+    <None Remove="Fonts\Campton-Book.otf" />
+    <None Remove="Fonts\Campton-Light.otf" />
+    <None Remove="Fonts\Campton-Medium.otf" />
+    <None Remove="Fonts\Campton-SemiBold.otf" />
+    <None Remove="Fonts\fontello.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Fonts\Campton-Bold.otf" />
+    <EmbeddedResource Include="Fonts\Campton-Book.otf" />
+    <EmbeddedResource Include="Fonts\Campton-Light.otf" />
+    <EmbeddedResource Include="Fonts\Campton-Medium.otf" />
+    <EmbeddedResource Include="Fonts\Campton-SemiBold.otf" />
+    <EmbeddedResource Include="Fonts\fontello.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
+    <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
+    <PackageReference Include="Xamarin.Plugin.SharedTransitions" Version="2.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Page\ProjectAddPopupPage.xaml.cs">
+      <DependentUpon>ProjectAddPopupPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\ProjectDetailPage.xaml.cs">
+      <DependentUpon>ProjectDetailPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+</Project>

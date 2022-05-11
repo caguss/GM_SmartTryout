@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:fonticons="clr-namespace:GM_SmartTryout.Fonts"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             BackgroundColor="{StaticResource colorBlackBackground}"
+             x:Class="GM_SmartTryout.ProjectDetailPage"
+             NavigationPage.HasNavigationBar="False"
+             mc:Ignorable="d">
+    <StackLayout Orientation="Vertical">
+        <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
+            <Label x:Name="lbl_ProjectName"  Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
+        </Grid>
+        <StackLayout Spacing="100" Orientation="Vertical" Padding="40">
+            <StackLayout.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label">
+                        <Setter Property="FontAttributes" Value="Bold"></Setter>
+                        <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                        <Setter Property="VerticalOptions" Value="Center"></Setter>
+                        <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                        <Setter Property="FontSize" Value="50"></Setter>
+                        <Setter Property="FontFamily" Value="FontCamptonBook"></Setter>
+                    </Style>
+                    <Style TargetType="Frame">
+                        <Setter Property="CornerRadius" Value="20"></Setter>
+                        <Setter Property="HeightRequest" Value="120"></Setter>
+                        <Setter Property="BackgroundColor" Value="#494949"></Setter>
+                    </Style>
+                    <Style TargetType="StackLayout">
+                        <Setter Property="Orientation" Value="Horizontal"></Setter>
+                    </Style>
+                    <Style TargetType="Image">
+                        <Setter Property="WidthRequest" Value="80"></Setter>
+                    </Style>
+                </ResourceDictionary>
+            </StackLayout.Resources>
+            <Frame>
+                <StackLayout>
+                    <Image Source="alpha_f.png" />
+                    <Label Text="FPR"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Image Source="alpha_d.png" />
+                    <Label Text="Dyncamic Check"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Image Source="alpha_s.png" />
+                    <Label Text="Static Check"/>
+                </StackLayout>
+            </Frame>
+            <Frame>
+                <StackLayout>
+                    <Image Source="alpha_fz.png" />
+                    <Label Text="Zip"/>
+                </StackLayout>
+            </Frame>
+        </StackLayout>
+    </StackLayout>
+</ContentPage>
