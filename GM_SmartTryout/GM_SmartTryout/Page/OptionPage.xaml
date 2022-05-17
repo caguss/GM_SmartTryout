@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:fonticons="clr-namespace:GM_SmartTryout.Fonts"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:local="clr-namespace:GM_SmartTryout"
+             BackgroundColor="{StaticResource colorBlackBackground}"
+             x:Class="GM_SmartTryout.OptionPage"
+             NavigationPage.HasNavigationBar="False"
+             mc:Ignorable="d">
+    <StackLayout Orientation="Vertical">
+        <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
+            <Label Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Option" VerticalTextAlignment="Center" VerticalOptions="Center" />
+        </Grid>
+        <ScrollView VerticalOptions="FillAndExpand" Padding="50">
+            <StackLayout Spacing="20">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Label">
+                            <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
+                            <Setter Property="FontSize" Value="40"></Setter>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <StackLayout Orientation="Horizontal">
+                    <Label Text="Excel Template"></Label>
+                    <Button Text="Change" Clicked="Change_Clicked" HorizontalOptions="EndAndExpand" FontSize="30" WidthRequest="200" HeightRequest="70" CornerRadius="15" TextColor="White" BackgroundColor="#747171"></Button>
+                </StackLayout>
+                <StackLayout>
+                    <Frame CornerRadius="15" HeightRequest="50" BackgroundColor="#aba9a9" Padding="10,0" >
+                        <Label x:Name="txt_ExcelName" Text="test" TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
+                    </Frame>
+                </StackLayout>
+                <StackLayout Orientation="Horizontal" Padding="0,40">
+                    <Label Text="Version"></Label>
+                    <Label x:Name="txt_version" Text="0.0" HorizontalOptions="EndAndExpand" Padding="30,0"></Label>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

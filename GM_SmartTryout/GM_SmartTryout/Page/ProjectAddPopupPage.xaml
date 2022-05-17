@@ -34,7 +34,7 @@
                 </StackLayout>
                 <StackLayout VerticalOptions="FillAndExpand" Spacing="30" Orientation="Horizontal" HorizontalOptions="Fill" HeightRequest="100" Padding="15,0">
                     <Label Text="Project Name" FontAttributes="Bold" FontSize="30" TextColor="Black" WidthRequest="250" VerticalOptions="CenterAndExpand" VerticalTextAlignment="Center" HorizontalTextAlignment="Center"/>
-                    <Entry HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="30" TextColor="Black"></Entry>
+                    <Entry x:Name="txt_projname" HorizontalOptions="FillAndExpand" HorizontalTextAlignment="Center" FontSize="30" TextColor="Black"></Entry>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand">
                     <Button x:Name="btnSave" FontFamily="FontCamptonBook" Clicked="btnSave_Clicked" CornerRadius="10" HorizontalOptions="FillAndExpand" HeightRequest="100" FontSize="30" TextColor="White" BackgroundColor="#747171" FontAttributes="Bold" Text="Save"/>

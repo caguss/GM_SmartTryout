@@ -1,4 +1,5 @@
-﻿using Rg.Plugins.Popup.Contracts;
+﻿using FormsControls.Base;
+using Rg.Plugins.Popup.Contracts;
 using Rg.Plugins.Popup.Services;
 using System;
 using System.Collections.Generic;
@@ -14,16 +15,27 @@ namespace GM_SmartTryout
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
     [DesignTimeVisible(false)]
-    public partial class MainPage : ContentPage
+    public partial class MainPage : ContentPage, IAnimationPage
     {
-        MainPageViewModel viewModel;
+        public IPageAnimation PageAnimation { get; } = new SlidePageAnimation { Duration = AnimationDuration.Short, Subtype = AnimationSubtype.FromRight };
+        public ObservableCollection<ProjectModel> ProjectModels { get; set; }
+
+        public void OnAnimationStarted(bool isPopAnimation)
+        {
+            // Put your code here but leaving empty works just fine
+        }
+
+        public void OnAnimationFinished(bool isPopAnimation)
+        {
+            // Put your code here but leaving empty works just fine
+        }
         private IPopupNavigation Popup_ { get; set; }
         private ProjectAddPopupPage _modalPage; 
         public MainPage()
         {
             InitializeComponent();
-            viewModel = new MainPageViewModel(Navigation);
-            BindingContext = viewModel;
+            ProjectModels = Provider.ProjectList();
+            Projectlist.ItemsSource = ProjectModels;
             Popup_ = PopupNavigation.Instance;
             _modalPage = new ProjectAddPopupPage();
         }
@@ -45,6 +57,11 @@ namespace GM_SmartTryout
         private void Popup_Popped(object sender, Rg.Plugins.Popup.Events.PopupNavigationEventArgs e)
         {
             IsEnabled = true;
+            if (ProjectAddPopupPage.createdmodel != null)
+            {
+                ProjectModels.Add(ProjectAddPopupPage.createdmodel);
+            }
+
         }
         private void ProjectList_ItemTapped(object sender, ItemTappedEventArgs e)
         {
@@ -55,13 +72,13 @@ namespace GM_SmartTryout
         {
             if (await DisplayAlert("확인","체크된 항목을 삭제하시겠습니까?","확인","취소"))
             {
-                for (int i = 0; i < viewModel.ProjectModels.Count; i++)
+                for (int i = 0; i < ProjectModels.Count ; i++)
                 {
-                    if (viewModel.ProjectModels[0].IsChecked == true)
+                    if (ProjectModels[i].IsChecked == true)
                     {
-                        viewModel.ProjectModels.Remove(viewModel.ProjectModels[0]);
+                        Provider.DeleteProject(ProjectModels[i].foldername);
+                        ProjectModels.Remove(ProjectModels[i]);
                         i--;
-                        //폴더에서 삭제
                     }
                 }
             }
@@ -80,9 +97,9 @@ namespace GM_SmartTryout
             await Navigation.PushAsync((new ProjectDetailPage(param)));
         }
 
-        private void Setting_Tapped(object sender, EventArgs e)
+        private async void Setting_Tapped(object sender, EventArgs e)
         {
-
+            await Navigation.PushAsync(new OptionPage());
         }
     }
 }

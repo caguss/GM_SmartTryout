@@ -9,14 +9,14 @@ namespace GM_SmartTryout
         public MainPageViewModel(INavigation navigation)
         {
             Navigation = navigation;
-            GetTest();
+            GetListData();
         }
         public Command NavigateToDetailPageCommand { get; }
         public ObservableCollection<ProjectModel> ProjectModels {get;set;}
 
-        void GetTest()
+        public void GetListData()
         {
-            ProjectModels = new ObservableCollection<ProjectModel>(Provider.Testdata());
+            ProjectModels = new ObservableCollection<ProjectModel>(Provider.ProjectList());
         }
 
     }

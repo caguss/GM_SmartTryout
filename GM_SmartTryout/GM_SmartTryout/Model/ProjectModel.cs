@@ -30,6 +30,9 @@ namespace GM_SmartTryout
 
        
         public string ProjectName { set; get; } //이름
+
         public string GenerateDate { set; get; } //생성날짜
+        public string foldername { set; get; } //폴더명
+        public string folderPath { set; get; } //폴더위치
     }
 }

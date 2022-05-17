@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormsControls.Base;
+using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -9,7 +10,7 @@ namespace GM_SmartTryout
         public App()
         {
             InitializeComponent();
-            MainPage = new NavigationPage(new MainPage());
+            MainPage = new AnimationNavigationPage(new MainPage());
         }
 
         protected override void OnStart()

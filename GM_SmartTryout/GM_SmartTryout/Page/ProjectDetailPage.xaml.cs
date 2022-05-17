@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FormsControls.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,9 +9,19 @@ using Xamarin.Forms;
 
 namespace GM_SmartTryout
 {
-    public partial class ProjectDetailPage : ContentPage
+    public partial class ProjectDetailPage : ContentPage, IAnimationPage
     {
+        public IPageAnimation PageAnimation { get; } = new SlidePageAnimation { Duration = AnimationDuration.Short, Subtype = AnimationSubtype.FromRight };
         private ProjectModel selectedProject;
+        public void OnAnimationStarted(bool isPopAnimation)
+        {
+            // Put your code here but leaving empty works just fine
+        }
+
+        public void OnAnimationFinished(bool isPopAnimation)
+        {
+            // Put your code here but leaving empty works just fine
+        }
         public ProjectDetailPage()
         {
             InitializeComponent();
@@ -22,8 +33,25 @@ namespace GM_SmartTryout
             selectedProject = param;
             lbl_ProjectName.Text = param.ProjectName;
         }
-        private void ProjectList_ItemTapped(object sender, ItemTappedEventArgs e)
+
+
+        private async void Zip_Tapped(object sender, EventArgs e)
         {
+            try
+            {
+                if (await DisplayAlert("확인", "현재까지의 프로젝트를 공유하시겠습니까?", "예", "아니오"))
+                {
+
+                    string projpath = Provider.ZipProject(selectedProject.foldername);
+
+                    await ExportUtilties.CompressAndExportFolder(projpath, selectedProject.ProjectName);
+                    await DisplayAlert("완료", "압축이 완료되었습니다.", "확인");
+                }
+            }
+            catch (Exception ex)
+            {
+                await DisplayAlert("오류", $"압축 중 오류를 발견했습니다.\n관리자에게 문의하세요.\n{ex.Message}", "확인");
+            }
 
         }
     }

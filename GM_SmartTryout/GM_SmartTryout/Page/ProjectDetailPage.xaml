@@ -12,6 +12,7 @@
         <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
             <Label x:Name="lbl_ProjectName"  Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
         </Grid>
+        <ScrollView VerticalOptions="FillAndExpand">
         <StackLayout Spacing="100" Orientation="Vertical" Padding="40">
             <StackLayout.Resources>
                 <ResourceDictionary>
@@ -56,10 +57,14 @@
             </Frame>
             <Frame>
                 <StackLayout>
-                    <Image Source="alpha_fz.png" />
-                    <Label Text="Zip"/>
+                    <Image Source="alpha_z.png" />
+                        <Label Text="Zip&amp;Share"/>
                 </StackLayout>
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Zip_Tapped"></TapGestureRecognizer>
+                </Frame.GestureRecognizers>
             </Frame>
         </StackLayout>
+        </ScrollView>
     </StackLayout>
 </ContentPage>

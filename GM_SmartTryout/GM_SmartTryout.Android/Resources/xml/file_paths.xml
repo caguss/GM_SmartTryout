@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+	<paths xmlns:android="http://schemas.android.com/apk/res/android">
+		<root-path name="root" path="." />
+		<external-path
+	   name="external"
+	   path="/data/user/0/com.coever.hansol.gm_smarttryout/" />
+		<external-files-path
+		  name="external_files"
+		  path="/data/user/0/com.coever.hansol.gm_smarttryout/files/" />
+		<cache-path
+		  name="cache"
+		  path="/data/user/0/com.coever.hansol.gm_smarttryout/cache/" />
+		<external-cache-path
+		  name="external_cache"
+		  path="/data/user/0/com.coever.hansol.gm_smarttryout/cache/" />
+		<files-path
+			name="files"
+			path="/data/user/0/com.coever.hansol.gm_smarttryout/files/" />
+	</paths>
