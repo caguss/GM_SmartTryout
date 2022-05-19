@@ -42,7 +42,10 @@
                     <Image Source="alpha_f.png" />
                     <Label Text="FPR"/>
                 </StackLayout>
-            </Frame>
+                    <Frame.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="FPR_Tapped"></TapGestureRecognizer>
+                    </Frame.GestureRecognizers>
+                </Frame>
             <Frame>
                 <StackLayout>
                     <Image Source="alpha_d.png" />

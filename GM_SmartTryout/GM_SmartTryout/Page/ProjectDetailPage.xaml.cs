@@ -54,5 +54,10 @@ namespace GM_SmartTryout
             }
 
         }
+
+        private async void FPR_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync((new FPRPage(selectedProject)));
+        }
     }
 }

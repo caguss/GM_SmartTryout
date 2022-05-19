@@ -63,10 +63,7 @@ namespace GM_SmartTryout
             }
 
         }
-        private void ProjectList_ItemTapped(object sender, ItemTappedEventArgs e)
-        {
 
-        }
 
         private async void Deleted_Tapped(object sender, EventArgs e)
         {

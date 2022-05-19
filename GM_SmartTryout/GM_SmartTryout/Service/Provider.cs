@@ -45,6 +45,12 @@ namespace GM_SmartTryout
           
         }
 
+        public static ObservableCollection<FPRModel> ContentList(ProjectModel selectedProject)
+        {
+            ObservableCollection<FPRModel> result = new ObservableCollection<FPRModel>();
+            return result;
+        }
+
         public static bool DeleteProject(string filename)
         {
             try

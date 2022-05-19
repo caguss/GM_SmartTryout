@@ -44,6 +44,9 @@
     <Compile Update="Page\ProjectAddPopupPage.xaml.cs">
       <DependentUpon>ProjectAddPopupPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Page\FPRPage.xaml.cs">
+      <DependentUpon>FPRPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Page\ProjectDetailPage.xaml.cs">
       <DependentUpon>ProjectDetailPage.xaml</DependentUpon>
     </Compile>
