@@ -8,18 +8,19 @@
              x:Class="GM_SmartTryout.FPRPage"
              NavigationPage.HasNavigationBar="False"
              mc:Ignorable="d">
-    <StackLayout Orientation="Vertical">
+
+        <StackLayout Orientation="Vertical" >
         <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
             <Label Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="First Panel Review" VerticalTextAlignment="Center" VerticalOptions="Center" />
         </Grid>
-        <Grid Margin="15,5,15,10" ColumnDefinitions="2*, 2*, 2*" RowDefinitions="auto">
-            <Label x:Name="lbl_plant" Grid.Row="0" Grid.Column="0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="PLANT" VerticalOptions="Center" />
-            <Label x:Name="lbl_partname" Grid.Row="0" Grid.Column="1" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Part Name" VerticalOptions="Center" />
-            <Label x:Name="lbl_date" Grid.Row="0" Grid.Column="2" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="DATE" VerticalOptions="Center" />
+        <Grid Margin="0,0,0,10" ColumnDefinitions="*,*,*" RowDefinitions="auto">
+            <Label x:Name="lbl_plant" Grid.Column="0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="PLANT" VerticalOptions="Center" />
+            <Label x:Name="lbl_partname" Grid.Column="1" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Part Name" VerticalOptions="Center" />
+            <Label x:Name="lbl_date" Grid.Column="2" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="DATE" VerticalOptions="Center" />
         </Grid>
-        <Grid Margin="15,5,15,10" ColumnDefinitions="8.5*, 1.5*, 1.5*" RowDefinitions="auto">
-            <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Fine" VerticalOptions="Center" />
-            <Label Grid.Row="0" Grid.Column="2" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Wrong" VerticalOptions="Center" />
+        <Grid Margin="15,0,15,-15" ColumnDefinitions="8.5*, 1.5*, 1.5*" RowDefinitions="auto">
+            <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="OK" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="2" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="NOK" VerticalOptions="Center" />
         </Grid>
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout>
@@ -30,10 +31,10 @@
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BackgroundColor="#747171" CornerRadius="15">
-                                <Grid ColumnDefinitions="8.5*,1.5*,1.5*" RowDefinitions="auto" Padding="0,0,10,0">
-                                    <Label Grid.Row="0" Grid.Column="1" FontAttributes="Bold" FontFamily="FontCamptonBook" FontSize="30" VerticalOptions="StartAndExpand" Text="{Binding CheckContent}" />
-                                    <CheckBox Grid.RowSpan="2" Grid.Column="2" x:Name="chkYes" HorizontalOptions="EndAndExpand"  IsChecked="{Binding IsYesChecked}"  Color="White" ScaleX="2" ScaleY="2" Margin="0,0,0,0"></CheckBox>
-                                    <CheckBox Grid.RowSpan="2" Grid.Column="2" x:Name="chkNo" HorizontalOptions="EndAndExpand"  IsChecked="{Binding IsNoChecked}"  Color="White" ScaleX="2" ScaleY="2" Margin="0,0,0,0"></CheckBox>
+                                <Grid ColumnDefinitions="8.5*,1.5*,1.5*" RowDefinitions="auto" Padding="0,0,30,0">
+                                    <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold" FontFamily="FontCamptonBook" FontSize="20" VerticalOptions="StartAndExpand" Text="{Binding CheckContent}" />
+                                    <CheckBox Grid.RowSpan="2" Grid.Column="1" x:Name="chkYes" HorizontalOptions="End"  IsChecked="{Binding IsYesChecked}"  Color="White" ScaleX="2" ScaleY="2" Margin="0,0,0,0"></CheckBox>
+                                    <CheckBox Grid.RowSpan="2" Grid.Column="2" x:Name="chkNo" HorizontalOptions="End"  IsChecked="{Binding IsNoChecked}"  Color="White" ScaleX="2" ScaleY="2" Margin="0,0,0,0"></CheckBox>
                                 </Grid>
                             </Frame>
                         </DataTemplate>
@@ -41,5 +42,10 @@
                 </CollectionView>
             </StackLayout>
         </ScrollView>
+        <StackLayout Orientation="Horizontal" Padding="10" VerticalOptions="EndAndExpand" HorizontalOptions="FillAndExpand">
+            <Button x:Name="btnSave" FontFamily="FontCamptonBook" Clicked="btnSave_Clicked" CornerRadius="10" HorizontalOptions="FillAndExpand" HeightRequest="100" FontSize="30" TextColor="White" BackgroundColor="#747171" FontAttributes="Bold" Text="Save"/>
+        </StackLayout>
     </StackLayout>
+
+
 </ContentPage>

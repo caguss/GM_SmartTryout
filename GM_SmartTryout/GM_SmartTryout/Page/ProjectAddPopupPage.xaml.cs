@@ -75,6 +75,11 @@ namespace GM_SmartTryout
                     await DisplayAlert("오류", "프로젝트 이름을 정해주세요.", "확인");
                     return;
                 }
+                if (txt_projname.Text.Contains("__"))
+                {
+                    await DisplayAlert("오류", "프로젝트 이름 내 '_ _'는 사용할 수 없습니다.", "확인");
+                    return;
+                }
                 createdmodel = Provider.CreateProject(txt_projname.Text, Application.Current.Properties["TemplateFullPath"].ToString());
                 if (createdmodel != null)
                 {

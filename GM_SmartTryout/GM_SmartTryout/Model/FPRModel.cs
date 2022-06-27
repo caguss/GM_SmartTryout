@@ -18,6 +18,11 @@ namespace GM_SmartTryout
                 {
                     yeschecked = value;
                     OnPropertyChanged("IsYesChecked");
+                    if (yeschecked == true && yeschecked == nochecked)
+                    {
+                        nochecked = !nochecked;
+                        OnPropertyChanged("IsNoChecked");
+                    }
                 }
             }
         }
@@ -30,6 +35,12 @@ namespace GM_SmartTryout
                 {
                     nochecked = value;
                     OnPropertyChanged("IsNoChecked");
+                    if (yeschecked == true && yeschecked == nochecked)
+                    {
+                        yeschecked = !yeschecked;
+                        OnPropertyChanged("IsYesChecked");
+                    }
+
                 }
             }
         }
@@ -41,10 +52,9 @@ namespace GM_SmartTryout
         }
 
 
-       
+
         public string CheckContent { set; get; } //질문
 
         public string Comment { set; get; } //comment
-        public string Category { set; get; } //카테고리? Die Function, Fixture Interface, Dimensional, surface,, 
     }
 }

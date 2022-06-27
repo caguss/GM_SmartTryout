@@ -1,11 +1,18 @@
-﻿using Android.Content;
+﻿using Android;
+using Android.Content;
+using Android.Content.PM;
+using AndroidX.Core.App;
+using AndroidX.Core.Content;
 using GM_SmartTryout.Droid;
 using Java.Util.Zip;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Essentials;
 using Xamarin.Forms;
+using FileProvider = AndroidX.Core.Content.FileProvider;
 
 [assembly: Dependency(typeof(FilesManager))]
 namespace GM_SmartTryout.Droid
@@ -13,7 +20,7 @@ namespace GM_SmartTryout.Droid
     public class FilesManager : IFilesManager
     {
         public static Context mContext;
-        public ProjectModel FileSave(string filename, string templatepath)
+        public ProjectModel FileCreate(string filename, string templatepath)
         {
             try
             {
@@ -22,7 +29,7 @@ namespace GM_SmartTryout.Droid
                 {
                     Directory.CreateDirectory(projlistpath);
                 }
-                var projpath = Path.Combine(projlistpath, filename + DateTime.Now.ToString("_yyMMdd"));
+                var projpath = Path.Combine(projlistpath, filename + DateTime.Now.ToString("__yyMMdd"));
                 var dirName = new DirectoryInfo(projpath).Name;
                 if (File.Exists(projpath))
                 {
@@ -68,8 +75,8 @@ namespace GM_SmartTryout.Droid
                     var dirName = new DirectoryInfo(listarray[i]).Name;
                     projlist.Add(new ProjectModel()
                     {
-                        ProjectName = dirName.Split('_')[0],
-                        GenerateDate = DateTime.ParseExact(dirName.Split('_')[1], "yyMMdd", null).ToString("yy-MM-dd"),
+                        ProjectName = dirName.Split("__")[0],
+                        GenerateDate = DateTime.ParseExact(dirName.Split("__")[1], "yyMMdd", null).ToString("yy-MM-dd"),
                         foldername = dirName,
                         folderPath = listarray[i]
                     });
@@ -132,5 +139,69 @@ namespace GM_SmartTryout.Droid
             var uri = AndroidX.Core.Content.FileProvider.GetUriForFile(mContext,mContext.PackageName+".fileprovider", new Java.IO.File(zippath));
             return uri.Path;
         }
+
+
+        //Method to save document as a file in Android and view the saved document
+        public async Task LoadExcelData(string excelpath, String contentType, MemoryStream stream)
+        {
+            string root = null;
+
+            if (ContextCompat.CheckSelfPermission(mContext, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions((Android.App.Activity)mContext, new String[] { Manifest.Permission.WriteExternalStorage }, 1);
+            }
+
+        
+
+            Java.IO.File file = new Java.IO.File(excelpath);
+
+            //Write the stream into the file
+            Java.IO.FileOutputStream outs = new Java.IO.FileOutputStream(file);
+            outs.Write(stream.ToArray());
+
+            outs.Flush();
+            outs.Close();
+
+
+            ///
+            /// 엑셀보기 메소드
+            ////Invoke the created file for viewing
+            if (file.Exists())
+            {
+                string extension = Android.Webkit.MimeTypeMap.GetFileExtensionFromUrl(Android.Net.Uri.FromFile(file).ToString());
+                string mimeType = Android.Webkit.MimeTypeMap.Singleton.GetMimeTypeFromExtension(extension);
+                Intent intent = new Intent(Intent.ActionView);
+                intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
+                Android.Net.Uri path = FileProvider.GetUriForFile(Forms.Context, Android.App.Application.Context.PackageName + ".provider", file); //모호한 참조 떴었음 FileProvider 확인할 것.
+                intent.SetDataAndType(path, mimeType);
+                intent.AddFlags(ActivityFlags.GrantReadUriPermission);
+                Forms.Context.StartActivity(Intent.CreateChooser(intent, "Choose App"));
+            }
+        }
+
+
+        public void SaveFPR(string excelpath, String contentType, MemoryStream stream)
+        {
+            string root = null;
+
+            if (ContextCompat.CheckSelfPermission(mContext, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
+            {
+                ActivityCompat.RequestPermissions((Android.App.Activity)mContext, new String[] { Manifest.Permission.WriteExternalStorage }, 1);
+            }
+
+
+
+            Java.IO.File file = new Java.IO.File(excelpath);
+
+            //Write the stream into the file
+            Java.IO.FileOutputStream outs = new Java.IO.FileOutputStream(file);
+            outs.Write(stream.ToArray());
+
+            outs.Flush();
+            outs.Close();
+
+        }
     }
+
+  
 }

@@ -18,8 +18,15 @@ namespace GM_SmartTryout
             // Put your code here but leaving empty works just fine
         }
 
-        public void OnAnimationFinished(bool isPopAnimation)
+        public async void OnAnimationFinished(bool isPopAnimation)
         {
+            await Task.WhenAll<bool>
+                (
+                    lbl_ProjectName.FadeTo(1, 400),
+
+                lbl_ProjectName.TranslateTo(0, 10, 400)
+                );
+
             // Put your code here but leaving empty works just fine
         }
         public ProjectDetailPage()
@@ -32,6 +39,8 @@ namespace GM_SmartTryout
             InitializeComponent();
             selectedProject = param;
             lbl_ProjectName.Text = param.ProjectName;
+
+
         }
 
 
@@ -54,10 +63,51 @@ namespace GM_SmartTryout
             }
 
         }
-
+        FPRPage FPRlistPage = null;
         private async void FPR_Tapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync((new FPRPage(selectedProject)));
+            popupLoadingView.IsVisible = true;
+            activityIndicator.IsRunning = true;
+
+                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+                {
+                    if (FPRlistPage == null)
+                    {
+                        FPRlistPage = new FPRPage(selectedProject);
+                        return true; // True = Repeat again, False = Stop the timer
+
+                    }
+                    else
+                    {
+                        if (FPRlistPage.LoadingFinish)
+                        {
+                            popupLoadingView.IsVisible = false;
+                            activityIndicator.IsRunning = false;
+                            Navigation.PushAsync(FPRlistPage);
+                            return false;
+                        }
+                        else
+                        {
+                            return true; // True = Repeat again, False = Stop the timer
+                        }
+                    }
+
+                  
+
+                });
+
+        }
+
+
+        private async void Dynamic_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync((new CheckSheetConditionPage(selectedProject, "D")));
+
+        }
+        private async void Static_Tapped(object sender, EventArgs e)
+        {
+            await Navigation.PushAsync((new CheckSheetConditionPage(selectedProject, "S")));
+
         }
     }
 }

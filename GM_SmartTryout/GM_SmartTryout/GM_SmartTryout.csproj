@@ -31,6 +31,7 @@
   <ItemGroup>
     <PackageReference Include="Plugin.Permissions" Version="6.0.1" />
     <PackageReference Include="Rg.Plugins.Popup" Version="2.1.0" />
+    <PackageReference Include="Syncfusion.Xamarin.XlsIO" Version="20.1.0.60" />
     <PackageReference Include="Xamarin.Essentials" Version="1.7.3" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2401" />
     <PackageReference Include="Xamarin.Forms.PancakeView" Version="2.3.0.759" />
@@ -47,6 +48,9 @@
     <Compile Update="Page\FPRPage.xaml.cs">
       <DependentUpon>FPRPage.xaml</DependentUpon>
     </Compile>
+    <Compile Update="Page\CheckSheetConditionPage.xaml.cs">
+      <DependentUpon>CheckSheetConditionPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Page\ProjectDetailPage.xaml.cs">
       <DependentUpon>ProjectDetailPage.xaml</DependentUpon>
     </Compile>
@@ -62,5 +66,9 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="NewFolder\" />
   </ItemGroup>
 </Project>

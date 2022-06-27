@@ -8,66 +8,89 @@
              x:Class="GM_SmartTryout.ProjectDetailPage"
              NavigationPage.HasNavigationBar="False"
              mc:Ignorable="d">
-    <StackLayout Orientation="Vertical">
-        <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
-            <Label x:Name="lbl_ProjectName"  Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
-        </Grid>
-        <ScrollView VerticalOptions="FillAndExpand">
-        <StackLayout Spacing="100" Orientation="Vertical" Padding="40">
-            <StackLayout.Resources>
-                <ResourceDictionary>
-                    <Style TargetType="Label">
-                        <Setter Property="FontAttributes" Value="Bold"></Setter>
-                        <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
-                        <Setter Property="VerticalOptions" Value="Center"></Setter>
-                        <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
-                        <Setter Property="FontSize" Value="50"></Setter>
-                        <Setter Property="FontFamily" Value="FontCamptonBook"></Setter>
-                    </Style>
-                    <Style TargetType="Frame">
-                        <Setter Property="CornerRadius" Value="20"></Setter>
-                        <Setter Property="HeightRequest" Value="120"></Setter>
-                        <Setter Property="BackgroundColor" Value="#494949"></Setter>
-                    </Style>
-                    <Style TargetType="StackLayout">
-                        <Setter Property="Orientation" Value="Horizontal"></Setter>
-                    </Style>
-                    <Style TargetType="Image">
-                        <Setter Property="WidthRequest" Value="80"></Setter>
-                    </Style>
-                </ResourceDictionary>
-            </StackLayout.Resources>
-            <Frame>
-                <StackLayout>
-                    <Image Source="alpha_f.png" />
-                    <Label Text="FPR"/>
+    <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
+                <Label x:Name="lbl_ProjectName" TranslationY="-50" Opacity="0"  Grid.Row="0" Grid.Column="0" FontSize="40" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
+            </Grid>
+            <ScrollView VerticalOptions="FillAndExpand">
+                <StackLayout Spacing="60" Orientation="Vertical" Padding="40">
+                    <StackLayout.Resources>
+                        <ResourceDictionary>
+                            <Style TargetType="Label">
+                                <Setter Property="FontAttributes" Value="Bold"></Setter>
+                                <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                                <Setter Property="FontSize" Value="50"></Setter>
+                                <Setter Property="FontFamily" Value="FontCamptonBook"></Setter>
+                            </Style>
+                            <Style TargetType="Frame">
+                                <Setter Property="CornerRadius" Value="20"></Setter>
+                                <Setter Property="HeightRequest" Value="120"></Setter>
+                                <Setter Property="BackgroundColor" Value="#494949"></Setter>
+                            </Style>
+                            <Style TargetType="StackLayout">
+                                <Setter Property="Orientation" Value="Horizontal"></Setter>
+                            </Style>
+                            <Style TargetType="Image">
+                                <Setter Property="WidthRequest" Value="80"></Setter>
+                            </Style>
+                        </ResourceDictionary>
+                    </StackLayout.Resources>
+                    <Frame>
+                        <StackLayout>
+                            <Image Source="alpha_f.png" />
+                            <Label Text="FPR"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="FPR_Tapped"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame>
+                        <StackLayout>
+                            <Image Source="alpha_d.png" />
+                            <Label Text="Dynamic Check"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Dynamic_Tapped"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame>
+                        <StackLayout>
+                            <Image Source="alpha_s.png" />
+                            <Label Text="Static Check"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Static_Tapped"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
+                    <Frame>
+                        <StackLayout>
+                            <Image Source="alpha_s.png" />
+                            <Label Text="View Excel"/>
+                        </StackLayout>
+                    </Frame>
+                    <Frame>
+                        <StackLayout>
+                            <Image Source="alpha_z.png" />
+                            <Label Text="Zip&amp;Share"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="Zip_Tapped"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                 </StackLayout>
-                    <Frame.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="FPR_Tapped"></TapGestureRecognizer>
-                    </Frame.GestureRecognizers>
-                </Frame>
-            <Frame>
-                <StackLayout>
-                    <Image Source="alpha_d.png" />
-                    <Label Text="Dyncamic Check"/>
-                </StackLayout>
-            </Frame>
-            <Frame>
-                <StackLayout>
-                    <Image Source="alpha_s.png" />
-                    <Label Text="Static Check"/>
-                </StackLayout>
-            </Frame>
-            <Frame>
-                <StackLayout>
-                    <Image Source="alpha_z.png" />
-                        <Label Text="Zip&amp;Share"/>
-                </StackLayout>
-                <Frame.GestureRecognizers>
-                    <TapGestureRecognizer Tapped="Zip_Tapped"></TapGestureRecognizer>
-                </Frame.GestureRecognizers>
-            </Frame>
+            </ScrollView>
         </StackLayout>
-        </ScrollView>
-    </StackLayout>
+        <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+            <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+                <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="500" BackgroundColor="White">
+                    <ActivityIndicator x:Name="activityIndicator" Margin="0,130,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="Black" WidthRequest="60" HeightRequest="60" ></ActivityIndicator>
+                    <Label x:Name="lblLoadingText" TextColor="Black" VerticalOptions="Center" FontSize="25" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
+                </StackLayout>
+            </StackLayout>
+        </ContentView>
+    </AbsoluteLayout>
 </ContentPage>

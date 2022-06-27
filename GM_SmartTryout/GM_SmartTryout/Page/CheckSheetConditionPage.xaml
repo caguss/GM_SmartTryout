@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:fonticons="clr-namespace:GM_SmartTryout.Fonts"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             BackgroundColor="{StaticResource colorBlackBackground}"
+             x:Class="GM_SmartTryout.CheckSheetConditionPage"
+             NavigationPage.HasNavigationBar="False"
+             mc:Ignorable="d">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+
+            <Color x:Key="LightRadioButtonColor">#F3F2F1</Color>
+            <Color x:Key="DarkRadioButtonColor">#9B9A99</Color>
+
+            <ControlTemplate x:Key="ThemeRadioTemplate">
+                <Frame
+                    Padding="0"
+                    Margin="10,0"
+                    HasShadow="False"
+                    HeightRequest="100"
+                    HorizontalOptions="CenterAndExpand"
+                    VerticalOptions="CenterAndExpand"
+                    WidthRequest="300">
+
+                    <Grid Margin="5" WidthRequest="80">
+                        <ContentPresenter />
+                        <Grid
+                            HeightRequest="30"
+                            HorizontalOptions="End"
+                            VerticalOptions="CenterAndExpand"
+                            WidthRequest="30">
+                            <Ellipse
+                                Fill="White"
+                                HeightRequest="26"
+                                HorizontalOptions="Center"
+                                Stroke="#2E2545"
+                                StrokeThickness="1"
+                                VerticalOptions="Center"
+                                WidthRequest="26" />
+                            <Ellipse
+                                x:Name="Check"
+                                BackgroundColor="Transparent"
+                                Fill="black"
+                                HeightRequest="20"
+                                HorizontalOptions="Center"
+                                Stroke="black"
+                                StrokeThickness="0"
+                                VerticalOptions="Center"
+                                WidthRequest="20" />
+                        </Grid>
+                        <!-- This enables us to put in dynamic content -->
+                    </Grid>
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroupList>
+                            <VisualStateGroup x:Name="CheckedStates">
+                                <VisualState x:Name="Checked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="#92ecde" />
+                                        <Setter TargetName="Check" Property="Opacity" Value="1" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                                <VisualState x:Name="Unchecked">
+                                    <VisualState.Setters>
+                                        <Setter Property="BorderColor" Value="#F3F2F1" />
+                                        <Setter TargetName="Check" Property="Opacity" Value="0" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateGroupList>
+                    </VisualStateManager.VisualStateGroups>
+                </Frame>
+            </ControlTemplate>
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <StackLayout Orientation="Vertical">
+        <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
+            <Label x:Name="lbl_ProjectName" TranslationY="-50" Opacity="0"  Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
+        </Grid>
+        <ScrollView VerticalOptions="FillAndExpand">
+            <StackLayout Spacing="60" Orientation="Vertical" Padding="40">
+                <StackLayout.Resources>
+                    <ResourceDictionary>
+                        <Style TargetType="Label">
+                            <Setter Property="FontAttributes" Value="Bold"></Setter>
+                            <Setter Property="HorizontalTextAlignment" Value="Center"></Setter>
+                            <Setter Property="VerticalOptions" Value="Center"></Setter>
+                            <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                            <Setter Property="FontSize" Value="50"></Setter>
+                            <Setter Property="FontFamily" Value="FontCamptonBook"></Setter>
+                        </Style>
+                        <Style TargetType="Frame">
+                            <Setter Property="CornerRadius" Value="20"></Setter>
+                            <Setter Property="HeightRequest" Value="120"></Setter>
+                            <Setter Property="BackgroundColor" Value="#494949"></Setter>
+                            <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                        </Style>
+                        <Style TargetType="StackLayout">
+                            <Setter Property="Orientation" Value="Horizontal"></Setter>
+                        </Style>
+                    </ResourceDictionary>
+                </StackLayout.Resources>
+                <Frame>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10" HorizontalOptions="FillAndExpand">
+                        <RadioButton Grid.Column="0" ControlTemplate="{StaticResource ThemeRadioTemplate}" Content="Initial" Value="Initial"/>
+                        <RadioButton Grid.Column="1" ControlTemplate="{StaticResource ThemeRadioTemplate}"  Content="Final"  Value="Final"/>
+                    </Grid>
+                </Frame>
+                <Frame>
+                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                        <RadioButton Grid.Column="0" ControlTemplate="{StaticResource ThemeRadioTemplate}" Content="Supplier"  Value="Supplier"/>
+                        <RadioButton Grid.Column="1" ControlTemplate="{StaticResource ThemeRadioTemplate}"  Content="Customer"  Value="Customer"/>
+                    </Grid>
+                </Frame>
+                <Frame >
+                    <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="5" Margin="-10,0">
+                        <RadioButton Grid.Column="0" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="10">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
+                                    <Label FontSize="30" Text="10" TextColor="White" />
+                                </StackLayout>
+                            </RadioButton.Content>
+                        </RadioButton>
+                        <RadioButton Grid.Column="1" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="20">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
+                                    <Label FontSize="30" Text="20" TextColor="White" />
+                                </StackLayout>
+                            </RadioButton.Content></RadioButton>
+                        <RadioButton Grid.Column="2" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="30">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
+                                    <Label FontSize="30" Text="30" TextColor="White" />
+                                </StackLayout>
+                            </RadioButton.Content></RadioButton>
+                        <RadioButton Grid.Column="3" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="40">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
+                                    <Label FontSize="30" Text="40" TextColor="White" />
+                                </StackLayout>
+                            </RadioButton.Content></RadioButton>
+                        <RadioButton Grid.Column="4" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="50">
+                            <RadioButton.Content>
+                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
+                                    <Label FontSize="30" Text="50" TextColor="White" />
+                                </StackLayout>
+                            </RadioButton.Content></RadioButton>
+                    </Grid>
+                </Frame>
+                <Button x:Name="btnNext" FontFamily="FontCamptonBook" Clicked="btnNext_Clicked" CornerRadius="10" HorizontalOptions="FillAndExpand" HeightRequest="100" FontSize="30" TextColor="White" BackgroundColor="#747171" VerticalOptions="EndAndExpand" FontAttributes="Bold" Text="Next"/>
+            </StackLayout>
+        </ScrollView>
+    </StackLayout>
+</ContentPage>

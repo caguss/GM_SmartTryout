@@ -27,10 +27,13 @@ namespace GM_SmartTryout
 
         public void OnAnimationFinished(bool isPopAnimation)
         {
+
+            lbl_title.FadeTo(1, 500);
+            //lbl_title.TranslateTo(0, -20, 500);
             // Put your code here but leaving empty works just fine
         }
         private IPopupNavigation Popup_ { get; set; }
-        private ProjectAddPopupPage _modalPage; 
+        private ProjectAddPopupPage _modalPage;
         public MainPage()
         {
             InitializeComponent();
@@ -38,12 +41,15 @@ namespace GM_SmartTryout
             Projectlist.ItemsSource = ProjectModels;
             Popup_ = PopupNavigation.Instance;
             _modalPage = new ProjectAddPopupPage();
+            //lbl_title.TranslationY = lbl_title.TranslationY + 20;
+
         }
         protected override void OnAppearing()
         {
             base.OnAppearing();
             Popup_.Popped += Popup_Popped;
-
+            lbl_title.FadeTo(1, 500);
+            //lbl_title.TranslateTo(0, -20, 500);
         }
 
         protected override void OnDisappearing()
@@ -67,9 +73,10 @@ namespace GM_SmartTryout
 
         private async void Deleted_Tapped(object sender, EventArgs e)
         {
-            if (await DisplayAlert("확인","체크된 항목을 삭제하시겠습니까?","확인","취소"))
+
+            if (await DisplayAlert("확인", "체크된 항목을 삭제하시겠습니까?", "확인", "취소"))
             {
-                for (int i = 0; i < ProjectModels.Count ; i++)
+                for (int i = 0; i < ProjectModels.Count; i++)
                 {
                     if (ProjectModels[i].IsChecked == true)
                     {
