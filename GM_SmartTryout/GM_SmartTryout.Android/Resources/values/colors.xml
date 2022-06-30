@@ -3,5 +3,5 @@
     <color name="launcher_background">#FFFFFF</color>
     <color name="colorPrimary">#494949</color>
     <color name="colorPrimaryDark">#494949</color>
-    <color name="colorAccent">#494949</color>
+    <color name="colorAccent">#FFFFFF</color>
 </resources>

@@ -12,7 +12,10 @@ namespace GM_SmartTryout
     public partial class CheckSheetConditionPage : ContentPage, IAnimationPage
     {
         public IPageAnimation PageAnimation { get; } = new SlidePageAnimation { Duration = AnimationDuration.Short, Subtype = AnimationSubtype.FromRight };
+        private VenderSurveyModel nowdata;
         private ProjectModel selectedProject;
+        public bool LoadingFinish = false;
+
         public void OnAnimationStarted(bool isPopAnimation)
         {
             // Put your code here but leaving empty works just fine
@@ -46,18 +49,41 @@ namespace GM_SmartTryout
                     break;
                 case "S":
                     lbl_ProjectName.Text = "Static Check";
-
                     break;
                 default:
                     break;
             }
-
+            nowdata = Provider.LoadVenderSurvey(selectedProject);
+            txt_PartName.Text = nowdata.PartName;
+            txt_PartNumber.Text = nowdata.PartNumber;
+            txt_Plant.Text = nowdata.StampingPlant;
+            txt_CSPC.Text = nowdata.CSPC;
+            txt_Program.Text = nowdata.Program;
+            txt_Supplier.Text = nowdata.Supplier;
+            LoadingFinish = true;
 
         }
 
         private async void btnNext_Clicked(object sender, EventArgs e)
         {
-            await Navigation.PushAsync((new FPRPage(selectedProject)));
+            nowdata.PartName = txt_PartName.Text;
+            nowdata.PartNumber = txt_PartNumber.Text;
+            nowdata.StampingPlant = txt_Plant.Text;
+            nowdata.CSPC = txt_CSPC.Text;
+            nowdata.Program = txt_Program.Text;
+            nowdata.Supplier = txt_Supplier.Text;
+
+            
+
+            ConditionModel cm = new ConditionModel();
+            cm.IF = RadioButtonGroup.GetSelectedValue(grid_IF).ToString();
+            cm.CS = RadioButtonGroup.GetSelectedValue(grid_CS).ToString();
+            cm.CheckValue = RadioButtonGroup.GetSelectedValue(grid_TIMES).ToString();
+
+            //Vender Survey 저장
+            Provider.SaveVenderSurvey(selectedProject, nowdata);
+            //Condition 데리고 이동
+            await Navigation.PushAsync((new DynamicPage(selectedProject, cm)));
         }
     }
 }

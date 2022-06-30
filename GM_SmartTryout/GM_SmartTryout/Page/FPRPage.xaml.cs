@@ -1,4 +1,5 @@
 ﻿using FormsControls.Base;
+using Syncfusion.XlsIO;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,7 +17,7 @@ namespace GM_SmartTryout
         private ProjectModel SelectedProject;
         public bool LoadingFinish = false;
         public ObservableCollection<FPRModel> FPRModels { get; set; }
-        public ExcelDetail ExcelDetails { get; set; }
+        public ExcelDetailModel ExcelDetails { get; set; }
 
         public void OnAnimationStarted(bool isPopAnimation)
         {
@@ -38,7 +39,7 @@ namespace GM_SmartTryout
             InitializeComponent();
             SelectedProject = param;
 
-            FPRModels = Provider.ContentList(SelectedProject);
+            FPRModels = Provider.FPRContentList(SelectedProject);
             Contentlist.ItemsSource = FPRModels;
             lbl_plant.Text = Provider.SelectedExcelDetails.Plant;
             lbl_partname.Text = Provider.SelectedExcelDetails.PartName;
@@ -50,17 +51,26 @@ namespace GM_SmartTryout
         {
             if (await DisplayAlert("확인","저장하시겠습니까?","저장","취소"))
             {
+                ExcelEngine excelEngine = new ExcelEngine();
+
                 try
                 {
-                    Provider.SaveFPR(SelectedProject, FPRModels);
-                    await DisplayAlert("완료", "저장이 완료되었습니다.", "확인");
 
+                    Provider.SaveFPR(SelectedProject, FPRModels, excelEngine);
+                    await DisplayAlert("완료", "저장이 완료되었습니다.", "확인");
+                    await Navigation.PopAsync();
                 }
                 catch (Exception ex)
                 {
+                    excelEngine.Dispose();
                     await DisplayAlert("오류", $"오류가 발생했습니다. 관리자에게 문의해주세요\n{ex.Message}", "확인");
                 }
             }
+        }
+
+        private void FPR_Comment(object sender, EventArgs e)
+        {
+
         }
     }
 }

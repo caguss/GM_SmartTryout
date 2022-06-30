@@ -64,50 +64,95 @@ namespace GM_SmartTryout
 
         }
         FPRPage FPRlistPage = null;
+        CheckSheetConditionPage VenderLoadingPage = null;
         private async void FPR_Tapped(object sender, EventArgs e)
         {
             popupLoadingView.IsVisible = true;
             activityIndicator.IsRunning = true;
 
-                Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (FPRlistPage == null)
                 {
-                    if (FPRlistPage == null)
-                    {
-                        FPRlistPage = new FPRPage(selectedProject);
-                        return true; // True = Repeat again, False = Stop the timer
+                    FPRlistPage = new FPRPage(selectedProject);
+                    return true; // True = Repeat again, False = Stop the timer
 
+                }
+                else
+                {
+                    if (FPRlistPage.LoadingFinish)
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        Navigation.PushAsync(FPRlistPage);
+                        return false;
                     }
                     else
                     {
-                        if (FPRlistPage.LoadingFinish)
-                        {
-                            popupLoadingView.IsVisible = false;
-                            activityIndicator.IsRunning = false;
-                            Navigation.PushAsync(FPRlistPage);
-                            return false;
-                        }
-                        else
-                        {
-                            return true; // True = Repeat again, False = Stop the timer
-                        }
+                        return true; // True = Repeat again, False = Stop the timer
                     }
-
-                  
-
-                });
-
+                }
+            });
         }
 
 
         private async void Dynamic_Tapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync((new CheckSheetConditionPage(selectedProject, "D")));
+            popupLoadingView.IsVisible = true;
+            activityIndicator.IsRunning = true;
 
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (VenderLoadingPage == null)
+                {
+                    VenderLoadingPage = new CheckSheetConditionPage(selectedProject, "D");
+                    return true; // True = Repeat again, False = Stop the timer
+
+                }
+                else
+                {
+                    if (VenderLoadingPage.LoadingFinish)
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        Navigation.PushAsync(VenderLoadingPage);
+                        return false;
+                    }
+                    else
+                    {
+                        return true; // True = Repeat again, False = Stop the timer
+                    }
+                }
+            });
         }
         private async void Static_Tapped(object sender, EventArgs e)
         {
-            await Navigation.PushAsync((new CheckSheetConditionPage(selectedProject, "S")));
+            popupLoadingView.IsVisible = true;
+            activityIndicator.IsRunning = true;
 
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (VenderLoadingPage == null)
+                {
+                    VenderLoadingPage = new CheckSheetConditionPage(selectedProject, "S");
+                    return true; // True = Repeat again, False = Stop the timer
+
+                }
+                else
+                {
+                    if (VenderLoadingPage.LoadingFinish)
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        Navigation.PushAsync(VenderLoadingPage);
+                        return false;
+                    }
+                    else
+                    {
+                        return true; // True = Repeat again, False = Stop the timer
+                    }
+                }
+            });
         }
     }
 }

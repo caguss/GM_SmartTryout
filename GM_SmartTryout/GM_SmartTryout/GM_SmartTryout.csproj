@@ -39,6 +39,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Page\DynamicPage.xaml.cs">
+      <DependentUpon>DynamicPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Page\OptionPage.xaml.cs">
       <DependentUpon>OptionPage.xaml</DependentUpon>
     </Compile>

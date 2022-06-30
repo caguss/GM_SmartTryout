@@ -6,7 +6,7 @@ namespace GM_SmartTryout
     /// 엑셀 탭 내부에 있는 데이터들.
     /// 예를 들어, PLANT, NAME, DATE 의 항목들
     /// </summary>
-    public class ExcelDetail
+    public class ExcelDetailModel
     {
        
         public string Plant { set; get; } 

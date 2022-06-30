@@ -19,7 +19,7 @@
                     Padding="0"
                     Margin="10,0"
                     HasShadow="False"
-                    HeightRequest="100"
+                    HeightRequest="90"
                     HorizontalOptions="CenterAndExpand"
                     VerticalOptions="CenterAndExpand"
                     WidthRequest="300">
@@ -80,7 +80,7 @@
             <Label x:Name="lbl_ProjectName" TranslationY="-50" Opacity="0"  Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
         </Grid>
         <ScrollView VerticalOptions="FillAndExpand">
-            <StackLayout Spacing="60" Orientation="Vertical" Padding="40">
+            <StackLayout Spacing="30" Orientation="Vertical" Padding="20">
                 <StackLayout.Resources>
                     <ResourceDictionary>
                         <Style TargetType="Label">
@@ -90,10 +90,21 @@
                             <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
                             <Setter Property="FontSize" Value="50"></Setter>
                             <Setter Property="FontFamily" Value="FontCamptonBook"></Setter>
+                            <Setter Property="TextColor" Value="White"></Setter>
+                        </Style>
+                        <Style TargetType="Entry">
+                            <Setter Property="FontAttributes" Value="Bold"></Setter>
+                            <Setter Property="HorizontalTextAlignment" Value="Start"></Setter>
+                            <Setter Property="VerticalOptions" Value="Center"></Setter>
+                            <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
+                            <Setter Property="FontSize" Value="30"></Setter>
+                            <Setter Property="FontFamily" Value="FontCamptonBook"></Setter>
+                            <Setter Property="TextColor" Value="White"></Setter>
+                            <Setter Property="VerticalTextAlignment" Value="Center"></Setter>
                         </Style>
                         <Style TargetType="Frame">
                             <Setter Property="CornerRadius" Value="20"></Setter>
-                            <Setter Property="HeightRequest" Value="120"></Setter>
+                            <Setter Property="HeightRequest" Value="90"></Setter>
                             <Setter Property="BackgroundColor" Value="#494949"></Setter>
                             <Setter Property="HorizontalOptions" Value="FillAndExpand"></Setter>
                         </Style>
@@ -102,49 +113,67 @@
                         </Style>
                     </ResourceDictionary>
                 </StackLayout.Resources>
+
+                <Frame HeightRequest="420" Padding="5">
+                    <Grid ColumnDefinitions="*,*" RowDefinitions="*,*,*,*,*,*" Margin="20,0">
+                        <Label Grid.Column="0" Grid.Row="0" HorizontalOptions="StartAndExpand"  HorizontalTextAlignment = "Start" Text="PART NAME" FontSize="30"/>
+                        <Label Grid.Column="0" Grid.Row="1" HorizontalOptions="StartAndExpand" HorizontalTextAlignment = "Start" Text="PART NUMBER" FontSize="30"/>
+                        <Label Grid.Column="0" Grid.Row="2" HorizontalOptions="StartAndExpand" HorizontalTextAlignment = "Start" Text="PLANT" FontSize="30"/>
+                        <Label Grid.Column="0" Grid.Row="3" HorizontalOptions="StartAndExpand" HorizontalTextAlignment = "Start" Text="PROGRAM" FontSize="30"/>
+                        <Label Grid.Column="0" Grid.Row="4" HorizontalOptions="StartAndExpand" HorizontalTextAlignment = "Start" Text="SUPPLIER" FontSize="30"/>
+                        <Label Grid.Column="0" Grid.Row="5" HorizontalOptions="StartAndExpand" HorizontalTextAlignment = "Start" Text="CSPC" FontSize="30"/>
+                        <Entry Grid.Column="1" Grid.Row="0" x:Name="txt_PartName" Text="test" />
+                        <Entry Grid.Column="1" Grid.Row="1" x:Name="txt_PartNumber" Text="test" />
+                        <Entry Grid.Column="1" Grid.Row="2" x:Name="txt_Plant" Text="test"/>
+                        <Entry Grid.Column="1" Grid.Row="3" x:Name="txt_Program" Text="test"/>
+                        <Entry Grid.Column="1" Grid.Row="4" x:Name="txt_Supplier" Text="test"/>
+                        <Entry Grid.Column="1" Grid.Row="5" x:Name="txt_CSPC" Text="test"/>
+                    </Grid>
+                </Frame>
+                
                 <Frame>
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10" HorizontalOptions="FillAndExpand">
+                    <Grid x:Name="grid_IF" ColumnDefinitions="*,*" ColumnSpacing="10" HorizontalOptions="FillAndExpand" RadioButtonGroup.GroupName="rg_IF">
                         <RadioButton Grid.Column="0" ControlTemplate="{StaticResource ThemeRadioTemplate}" Content="Initial" Value="Initial"/>
                         <RadioButton Grid.Column="1" ControlTemplate="{StaticResource ThemeRadioTemplate}"  Content="Final"  Value="Final"/>
                     </Grid>
                 </Frame>
                 <Frame>
-                    <Grid ColumnDefinitions="*,*" ColumnSpacing="10">
+                    <Grid x:Name="grid_CS" ColumnDefinitions="*,*" ColumnSpacing="10"  RadioButtonGroup.GroupName="rg_CS">
                         <RadioButton Grid.Column="0" ControlTemplate="{StaticResource ThemeRadioTemplate}" Content="Supplier"  Value="Supplier"/>
                         <RadioButton Grid.Column="1" ControlTemplate="{StaticResource ThemeRadioTemplate}"  Content="Customer"  Value="Customer"/>
                     </Grid>
                 </Frame>
                 <Frame >
-                    <Grid ColumnDefinitions="*,*,*,*,*" ColumnSpacing="5" Margin="-10,0">
+                    <Grid x:Name="grid_TIMES" ColumnDefinitions="*,*,*,*,*" ColumnSpacing="5" Margin="-10,0"  RadioButtonGroup.GroupName="rg_TIMES">
                         <RadioButton Grid.Column="0" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="10">
                             <RadioButton.Content>
-                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
-                                    <Label FontSize="30" Text="10" TextColor="White" />
+                                <StackLayout HorizontalOptions="Center" Margin="-10,0,0,0" VerticalOptions="Center">
+                                    <Label FontSize="35" Text="10" TextColor="White" />
                                 </StackLayout>
                             </RadioButton.Content>
                         </RadioButton>
                         <RadioButton Grid.Column="1" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="20">
                             <RadioButton.Content>
-                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
-                                    <Label FontSize="30" Text="20" TextColor="White" />
+                                <StackLayout HorizontalOptions="Center" Margin="-10,0,0,0" VerticalOptions="Center">
+                                    <Label FontSize="35" Text="20" TextColor="White" />
                                 </StackLayout>
                             </RadioButton.Content></RadioButton>
                         <RadioButton Grid.Column="2" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="30">
                             <RadioButton.Content>
-                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
-                                    <Label FontSize="30" Text="30" TextColor="White" />
+                                <StackLayout HorizontalOptions="Center" Margin="-10,0,0,0" VerticalOptions="Center">
+                                    <Label FontSize="35" Text="30" TextColor="White" />
                                 </StackLayout>
                             </RadioButton.Content></RadioButton>
                         <RadioButton Grid.Column="3" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="40">
                             <RadioButton.Content>
-                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
-                                    <Label FontSize="30" Text="40" TextColor="White" />
+                                <StackLayout HorizontalOptions="Center" Margin="-10,0,0,0" VerticalOptions="Center">
+                                    <Label FontSize="35" Text="40" TextColor="White" />
                                 </StackLayout>
                             </RadioButton.Content></RadioButton>
                         <RadioButton Grid.Column="4" ControlTemplate="{StaticResource ThemeRadioTemplate}" Value="50">
                             <RadioButton.Content>
-                                <StackLayout HorizontalOptions="Center" Padding="10,0" VerticalOptions="Center">
-                                    <Label FontSize="30" Text="50" TextColor="White" />
+                                <StackLayout HorizontalOptions="Center" Margin="-10,0,0,0" VerticalOptions="Center">
+                                    <Label FontSize="35" Text="50" TextColor="White" />
                                 </StackLayout>
                             </RadioButton.Content></RadioButton>
                     </Grid>

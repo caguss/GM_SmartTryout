@@ -180,15 +180,13 @@ namespace GM_SmartTryout.Droid
         }
 
 
-        public void SaveFPR(string excelpath, String contentType, MemoryStream stream)
+        public void SaveExcel(string excelpath, String contentType, MemoryStream stream)
         {
-            string root = null;
 
             if (ContextCompat.CheckSelfPermission(mContext, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
             {
                 ActivityCompat.RequestPermissions((Android.App.Activity)mContext, new String[] { Manifest.Permission.WriteExternalStorage }, 1);
             }
-
 
 
             Java.IO.File file = new Java.IO.File(excelpath);

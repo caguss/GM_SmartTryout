@@ -68,7 +68,7 @@
                     </Frame>
                     <Frame>
                         <StackLayout>
-                            <Image Source="alpha_s.png" />
+                            <Image Source="alpha_v.png" />
                             <Label Text="View Excel"/>
                         </StackLayout>
                     </Frame>
@@ -87,7 +87,7 @@
         <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
             <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
                 <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="500" BackgroundColor="White">
-                    <ActivityIndicator x:Name="activityIndicator" Margin="0,130,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="Black" WidthRequest="60" HeightRequest="60" ></ActivityIndicator>
+                    <ActivityIndicator x:Name="activityIndicator" Margin="0,150,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="Black" WidthRequest="60" HeightRequest="60" ></ActivityIndicator>
                     <Label x:Name="lblLoadingText" TextColor="Black" VerticalOptions="Center" FontSize="25" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
                 </StackLayout>
             </StackLayout>

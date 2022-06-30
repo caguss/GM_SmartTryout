@@ -15,6 +15,6 @@ namespace GM_SmartTryout
         string ZipProject(string filename);
         string GetFileUri(string zippath);
         Task LoadExcelData(string excelpath, string contentType, MemoryStream stream);
-        void SaveFPR(string excelpath, String contentType, MemoryStream stream);
+        void SaveExcel(string excelpath, String contentType, MemoryStream stream);
     }
 }
