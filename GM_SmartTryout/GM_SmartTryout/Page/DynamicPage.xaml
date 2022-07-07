@@ -9,32 +9,46 @@
              NavigationPage.HasNavigationBar="False"
              mc:Ignorable="d">
 
-        <StackLayout Orientation="Vertical" >
-        <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
+    <StackLayout Orientation="Vertical" >
+        <Grid Margin="25,20,10,15" ColumnDefinitions="1.5*,2.5*" RowDefinitions="auto">
             <Label Grid.Row="0" Grid.Column="0" FontSize="40" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="Dynamic Page" VerticalTextAlignment="Center" VerticalOptions="Center" />
+            <Image Grid.Row="0" Grid.Column="1"  Source="help.png" HorizontalOptions="Start" ScaleX="1.5" ScaleY="1.5"  VerticalOptions="Center">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped">
+                        
+                    </TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
         </Grid>
         <Grid Margin="0,0,0,10" ColumnDefinitions="*,*,*" RowDefinitions="auto">
-            <Label x:Name="lbl_plant" Grid.Column="0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="PLANT" VerticalOptions="Center" />
+            <Label x:Name="lbl_CSPC" Grid.Column="0" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="PLANT" VerticalOptions="Center" />
             <Label x:Name="lbl_partname" Grid.Column="1" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Part Name" VerticalOptions="Center" />
-            <Label x:Name="lbl_date" Grid.Column="2" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="DATE" VerticalOptions="Center" />
+            <Label x:Name="lbl_partnum" Grid.Column="2" FontSize="30" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="DATE" VerticalOptions="Center" />
         </Grid>
-        <Grid Margin="15,0,15,-15" ColumnDefinitions="8.5*, 1.5*, 1.5*" RowDefinitions="auto">
-            <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="OK" VerticalOptions="Center" />
-            <Label Grid.Row="0" Grid.Column="2" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="NOK" VerticalOptions="Center" />
+        <Grid Margin="15,0,15,5" ColumnDefinitions="8.5*, *, *" RowDefinitions="auto">
+            <Label Grid.Row="0" Grid.Column="1" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Check" VerticalOptions="Center" />
+            <Label Grid.Row="0" Grid.Column="2" FontSize="20" HorizontalOptions="Center" HorizontalTextAlignment="Center" FontAttributes="Bold" Text="Pic." VerticalOptions="Center" />
         </Grid>
         <ScrollView VerticalOptions="FillAndExpand">
             <StackLayout>
-                <CollectionView x:Name="Contentlist" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,20,0,0" VerticalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never">
+                <CollectionView x:Name="Contentlist" ItemsSource="{Binding CheckList}" Grid.Row="1" Grid.ColumnSpan="4" Margin="0,20,0,0" VerticalOptions="FillAndExpand" HorizontalScrollBarVisibility="Never">
                     <CollectionView.ItemsLayout>
                         <LinearItemsLayout ItemSpacing="14" Orientation="Vertical" />
                     </CollectionView.ItemsLayout>
                     <CollectionView.ItemTemplate>
                         <DataTemplate>
                             <Frame BackgroundColor="#747171" CornerRadius="15">
-                                <Grid ColumnDefinitions="8.5*,1.5*,1.5*" RowDefinitions="auto" Padding="0,0,30,0">
+                                <Grid ColumnDefinitions="8.5*,*,*" RowDefinitions="auto" Padding="0,0,30,0">
                                     <Label Grid.Row="0" Grid.Column="0" FontAttributes="Bold" FontFamily="FontCamptonBook" FontSize="20" VerticalOptions="StartAndExpand" Text="{Binding CheckContent}" />
-                                    <CheckBox Grid.RowSpan="2" Grid.Column="1" x:Name="chkYes" HorizontalOptions="End"  IsChecked="{Binding IsYesChecked}"  Color="White" ScaleX="2" ScaleY="2" Margin="0,0,0,0"></CheckBox>
-                                    <CheckBox Grid.RowSpan="2" Grid.Column="2" x:Name="chkNo" HorizontalOptions="End"  IsChecked="{Binding IsNoChecked}"  Color="White" ScaleX="2" ScaleY="2" Margin="0,0,0,0"></CheckBox>
+                                    <Picker x:Name="picker_check" Grid.RowSpan="2" SelectedItem="{Binding CheckValue}" Grid.Column="1" HorizontalTextAlignment="Center" TextColor="White" FontAttributes="Bold" FontSize="25" BackgroundColor="Gray" WidthRequest="60" HorizontalOptions="EndAndExpand" VerticalOptions="Center" Margin="0,0,-20,0">
+                                        <Picker.Items>
+                                            <x:String>P</x:String>
+                                            <x:String>O</x:String>
+                                            <x:String>V</x:String>
+                                            <x:String>X</x:String>
+                                        </Picker.Items>
+                                    </Picker>
+                                    <Image Margin="0,0,-20,0" Grid.RowSpan="2" Grid.Column="2"  HorizontalOptions="End" Source="alpha_p.png" ></Image>
                                 </Grid>
                             </Frame>
                         </DataTemplate>
@@ -46,6 +60,5 @@
             <Button x:Name="btnSave" FontFamily="FontCamptonBook" Clicked="btnSave_Clicked" CornerRadius="10" HorizontalOptions="FillAndExpand" HeightRequest="100" FontSize="30" TextColor="White" BackgroundColor="#747171" FontAttributes="Bold" Text="Save"/>
         </StackLayout>
     </StackLayout>
-
 
 </ContentPage>

@@ -10,10 +10,8 @@
              mc:Ignorable="d">
     <ContentPage.Resources>
         <ResourceDictionary>
-
             <Color x:Key="LightRadioButtonColor">#F3F2F1</Color>
             <Color x:Key="DarkRadioButtonColor">#9B9A99</Color>
-
             <ControlTemplate x:Key="ThemeRadioTemplate">
                 <Frame
                     Padding="0"
@@ -74,8 +72,9 @@
             </ControlTemplate>
         </ResourceDictionary>
     </ContentPage.Resources>
+    <AbsoluteLayout Padding="0" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
 
-    <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" VerticalOptions="FillAndExpand" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
         <Grid Margin="25,20,10,15" ColumnDefinitions="2*" RowDefinitions="auto">
             <Label x:Name="lbl_ProjectName" TranslationY="-50" Opacity="0"  Grid.Row="0" Grid.Column="0" FontSize="50" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
         </Grid>
@@ -182,4 +181,13 @@
             </StackLayout>
         </ScrollView>
     </StackLayout>
+    <ContentView x:Name="popupLoadingView" BackgroundColor="#C0808080" Padding="10, 0" IsVisible="false" AbsoluteLayout.LayoutBounds="0, 0, 1, 1" AbsoluteLayout.LayoutFlags="All">
+        <StackLayout VerticalOptions="Center" HorizontalOptions="Center">
+            <StackLayout Orientation="Vertical" HeightRequest="400" WidthRequest="500" BackgroundColor="White">
+                <ActivityIndicator x:Name="activityIndicator" Margin="0,150,0,0" VerticalOptions="Center" HorizontalOptions="Center" Color="Black" WidthRequest="60" HeightRequest="60" ></ActivityIndicator>
+                <Label x:Name="lblLoadingText" TextColor="Black" VerticalOptions="Center" FontSize="25" HorizontalOptions="Center" VerticalTextAlignment="Center" Text="Loading..."></Label>
+            </StackLayout>
+        </StackLayout>
+    </ContentView>
+    </AbsoluteLayout>
 </ContentPage>

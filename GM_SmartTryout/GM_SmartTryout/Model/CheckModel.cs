@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace GM_SmartTryout
 {
@@ -7,7 +8,8 @@ namespace GM_SmartTryout
         /// <summary>
         /// DistributePage Class
         /// </summary>
-     
+
+        public string _checkValue;
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged(string propertyName)
@@ -21,6 +23,15 @@ namespace GM_SmartTryout
 
         public string Num { set; get; } //항목 ex) 1.15.1 ,,,
         public string Comment { set; get; } //comment
-        public string CheckValue { get; set; } // P,O,V,K
+        public string CheckValue 
+        { 
+            get { return _checkValue; }
+            set
+            {
+                _checkValue = value;
+                OnPropertyChanged("CheckValue");
+            } 
+        } // P,O,V,K
+
     }
 }

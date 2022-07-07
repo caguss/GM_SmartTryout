@@ -62,6 +62,7 @@ namespace GM_SmartTryout
                     worksheet.CheckBoxes[i].Remove();
                 }
 
+     
 
                 //Set Text
 
@@ -84,7 +85,51 @@ namespace GM_SmartTryout
                 Xamarin.Forms.DependencyService.Get<IFilesManager>().SaveExcel(excelPath, "application/msexcel", stream);
             }
         }
+        public static void SaveCheckList(ProjectModel selectedProject, ObservableCollection<CheckModel> checkdata, ExcelEngine excelEngine, bool isDynamic, string workcolumn)
+        {
 
+            using (excelEngine)
+            {
+                IApplication application = excelEngine.Excel;
+                application.DefaultVersion = ExcelVersion.Excel2016;
+                application.UseFastRecordParsing = true;
+
+                string resourcePath = selectedProject.folderPath;
+                string excelname = selectedProject.ProjectName + ".xlsx";
+                //"App" is the class of Portable project.
+                string excelPath = resourcePath + "/" + excelname;
+                FileStream fs = new FileStream(excelPath, FileMode.Open, FileAccess.ReadWrite);
+                StreamReader r = new StreamReader(fs);
+                Stream fileStream = r.BaseStream;
+
+                //Opens the workbook 
+                IWorkbook workbook = application.Workbooks.Open(fileStream);
+                IWorksheet worksheet = null;
+                //Access first worksheet from the workbook.
+
+                if (isDynamic)
+                    worksheet = workbook.Worksheets[9];
+                else
+                    worksheet = workbook.Worksheets[10];
+
+           
+                //Set Text
+                for (int i = 13; i < checkdata.Count; i++)
+                {
+                    worksheet.Range[$"{workcolumn}{i}"].Text = checkdata[i - 13].CheckValue;
+
+                }
+                MemoryStream stream = new MemoryStream();
+                workbook.SaveAs(stream);
+                fileStream.Close();
+                fs.Close();
+
+                workbook.Close();
+                excelEngine.Dispose();
+
+                Xamarin.Forms.DependencyService.Get<IFilesManager>().SaveExcel(excelPath, "application/msexcel", stream);
+            }
+        }
         public static ObservableCollection<FPRModel> FPRContentList(ProjectModel selectedProject)
         {
             ObservableCollection<FPRModel> result = new ObservableCollection<FPRModel>();
@@ -125,7 +170,7 @@ namespace GM_SmartTryout
 
                     for (int i = 13; i < 57; i++)
                     {
-                        if (worksheet.Range[$"A{i}"].CalculatedValue != "")
+                        if (worksheet.Range[$"A{i}"].DisplayText != "")
                         {
                             result.Add(new FPRModel
                             {
@@ -182,6 +227,7 @@ namespace GM_SmartTryout
                         worksheet = workbook.Worksheets[10];
 
 
+                 
 
                     //ExcelDetail에 데이터 삽입
                     SelectedExcelDetails = new ExcelDetailModel()
@@ -193,9 +239,9 @@ namespace GM_SmartTryout
 
                     //dynamic 리스트 목록화
 
-                    for (int i = 13; i < 57; i++)
+                    for (int i = 11; i < 57; i++)
                     {
-                        if (worksheet.Range[$"A{i}"].DisplayText.Length < 10)
+                        if (worksheet.Range[$"A{i}"].DisplayText != "" || !worksheet.Range[$"A{i}"].Cells[0].IsMerged)
                         {
                             result.Add(new CheckModel
                             {

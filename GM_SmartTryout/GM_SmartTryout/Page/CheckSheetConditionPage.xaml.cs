@@ -64,8 +64,15 @@ namespace GM_SmartTryout
 
         }
 
+        DynamicPage DynamiclistPage = null;
         private async void btnNext_Clicked(object sender, EventArgs e)
         {
+            if (RadioButtonGroup.GetSelectedValue(grid_IF) == null || RadioButtonGroup.GetSelectedValue(grid_CS) == null || RadioButtonGroup.GetSelectedValue(grid_TIMES) == null)
+            {
+                await DisplayAlert("알림","작업하실 분류를 선택해 주세요.","확인");
+                return;
+            }
+
             nowdata.PartName = txt_PartName.Text;
             nowdata.PartNumber = txt_PartNumber.Text;
             nowdata.StampingPlant = txt_Plant.Text;
@@ -73,17 +80,43 @@ namespace GM_SmartTryout
             nowdata.Program = txt_Program.Text;
             nowdata.Supplier = txt_Supplier.Text;
 
-            
-
             ConditionModel cm = new ConditionModel();
             cm.IF = RadioButtonGroup.GetSelectedValue(grid_IF).ToString();
             cm.CS = RadioButtonGroup.GetSelectedValue(grid_CS).ToString();
             cm.CheckValue = RadioButtonGroup.GetSelectedValue(grid_TIMES).ToString();
 
-            //Vender Survey 저장
-            Provider.SaveVenderSurvey(selectedProject, nowdata);
-            //Condition 데리고 이동
-            await Navigation.PushAsync((new DynamicPage(selectedProject, cm)));
+            popupLoadingView.IsVisible = true;
+            activityIndicator.IsRunning = true;
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (DynamiclistPage == null)
+                {
+
+
+                    //Vender Survey 저장
+                    Provider.SaveVenderSurvey(selectedProject, nowdata);
+                    DynamiclistPage = new DynamicPage(selectedProject, cm);
+                    return true; // True = Repeat again, False = Stop the timer
+
+                }
+                else
+                {
+                    //Condition 데리고 이동
+                    if (DynamiclistPage.LoadingFinish)
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        Navigation.PushAsync(DynamiclistPage);
+                        return false;
+                    }
+                    else
+                    {
+                        return true; // True = Repeat again, False = Stop the timer
+                    }
+                }
+            });
+
         }
     }
 }

@@ -32,7 +32,8 @@ namespace GM_SmartTryout
         /// 
         /// </summary>
         private string workColumn; // 작업할 컬럼 지정
-        public ObservableCollection<CheckModel> CheckModels { get; set; }
+        //public ObservableCollection<CheckModel> CheckModels { get; set; }
+        PickerViewModel _pvm;
         public ExcelDetailModel ExcelDetails { get; set; }
 
         public void OnAnimationStarted(bool isPopAnimation)
@@ -53,8 +54,9 @@ namespace GM_SmartTryout
         public DynamicPage(ProjectModel param, ConditionModel cm)
         {
             InitializeComponent();
-            SelectedProject = param;
+            _pvm = new PickerViewModel();
 
+            SelectedProject = param;
 
             if (cm.IF == "Initial")
             {
@@ -158,11 +160,14 @@ namespace GM_SmartTryout
 
 
 
-            CheckModels = Provider.CheckContentList(SelectedProject, true, workColumn);
-            Contentlist.ItemsSource = CheckModels;
-            lbl_plant.Text = Provider.SelectedExcelDetails.Plant;
+            _pvm.CheckList = Provider.CheckContentList(SelectedProject, true, workColumn);
+          
+
+            Contentlist.BindingContext = _pvm;
+
+            lbl_CSPC.Text = Provider.SelectedExcelDetails.CSPC;
             lbl_partname.Text = Provider.SelectedExcelDetails.PartName;
-            lbl_date.Text = Provider.SelectedExcelDetails.Date;
+            lbl_partnum.Text = Provider.SelectedExcelDetails.Part_No;
             LoadingFinish = true;
         }
 
@@ -174,7 +179,7 @@ namespace GM_SmartTryout
 
                 try
                 {
-                    //Provider.SaveFPR(SelectedProject, CheckModels,excelEngine);
+                    Provider.SaveCheckList(SelectedProject, _pvm.CheckList, excelEngine, true, workColumn);
                     await DisplayAlert("완료", "저장이 완료되었습니다.", "확인");
 
                 }
@@ -184,6 +189,11 @@ namespace GM_SmartTryout
                     await DisplayAlert("오류", $"오류가 발생했습니다. 관리자에게 문의해주세요\n{ex.Message}", "확인");
                 }
             }
+        }
+
+        private async void TapGestureRecognizer_Tapped(object sender, EventArgs e)
+        {
+            await DisplayAlert("Help", "√ = OK (P)\v\nΧ = not OK (O)\v\nⓍ= Re-checked OK (V)\v\nØ= not applicable (X)", "확인");
         }
     }
 }
