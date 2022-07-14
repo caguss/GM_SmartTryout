@@ -114,7 +114,7 @@ namespace GM_SmartTryout.Droid
 
         }
 
-        public string ZipProject(string foldername)
+        public string GetFilePath(string foldername)
         {
 
             try
@@ -134,35 +134,10 @@ namespace GM_SmartTryout.Droid
             }
         }
 
-        public string GetFileUri(string zippath)
-        {
-            var uri = AndroidX.Core.Content.FileProvider.GetUriForFile(mContext,mContext.PackageName+".fileprovider", new Java.IO.File(zippath));
-            return uri.Path;
-        }
-
-
         //Method to save document as a file in Android and view the saved document
-        public async Task LoadExcelData(string excelpath, String contentType, MemoryStream stream)
+        public void ViewExcel(string excelpath)
         {
-            string root = null;
-
-            if (ContextCompat.CheckSelfPermission(mContext, Manifest.Permission.WriteExternalStorage) != Permission.Granted)
-            {
-                ActivityCompat.RequestPermissions((Android.App.Activity)mContext, new String[] { Manifest.Permission.WriteExternalStorage }, 1);
-            }
-
-        
-
             Java.IO.File file = new Java.IO.File(excelpath);
-
-            //Write the stream into the file
-            Java.IO.FileOutputStream outs = new Java.IO.FileOutputStream(file);
-            outs.Write(stream.ToArray());
-
-            outs.Flush();
-            outs.Close();
-
-
             ///
             /// 엑셀보기 메소드
             ////Invoke the created file for viewing
@@ -172,7 +147,7 @@ namespace GM_SmartTryout.Droid
                 string mimeType = Android.Webkit.MimeTypeMap.Singleton.GetMimeTypeFromExtension(extension);
                 Intent intent = new Intent(Intent.ActionView);
                 intent.SetFlags(ActivityFlags.ClearTop | ActivityFlags.NewTask);
-                Android.Net.Uri path = FileProvider.GetUriForFile(Forms.Context, Android.App.Application.Context.PackageName + ".provider", file); //모호한 참조 떴었음 FileProvider 확인할 것.
+                var path = AndroidX.Core.Content.FileProvider.GetUriForFile(mContext,mContext.PackageName+".fileprovider", file);
                 intent.SetDataAndType(path, mimeType);
                 intent.AddFlags(ActivityFlags.GrantReadUriPermission);
                 Forms.Context.StartActivity(Intent.CreateChooser(intent, "Choose App"));
@@ -197,6 +172,29 @@ namespace GM_SmartTryout.Droid
 
             outs.Flush();
             outs.Close();
+
+        }
+        public void ZipFile(string filepath, string projname)
+        {
+
+
+            // Get a temporary cache directory
+            var exportZipTempDirectory = Path.Combine(FileSystem.CacheDirectory, "Export");
+            if (!Directory.Exists(exportZipTempDirectory))
+                Directory.CreateDirectory(exportZipTempDirectory);
+
+            // Get a timestamped filename
+            var exportZipFilename = $"{projname}_whenZip_{DateTime.Now.ToString("yyyyMMdd")}.zip";
+            FileStream fNewZipFileStream = File.Create(exportZipTempDirectory+"/"+exportZipFilename);
+            ZipOutputStream zos = new ZipOutputStream(fNewZipFileStream);
+
+ 
+            ZipEntry entry = new ZipEntry(projname);
+            zos.PutNextEntry(entry);
+
+            byte[] fileContents = File.ReadAllBytes(filepath);
+            zos.Write(fileContents);
+            zos.CloseEntry();
 
         }
     }

@@ -11,12 +11,12 @@ using Xamarin.Forms;
 
 namespace GM_SmartTryout
 {
-    public partial class DynamicPage : ContentPage, IAnimationPage
+    public partial class CheckSheetPage : ContentPage, IAnimationPage
     {
         public IPageAnimation PageAnimation { get; } = new SlidePageAnimation { Duration = AnimationDuration.Short, Subtype = AnimationSubtype.FromRight };
         private ProjectModel SelectedProject;
         public bool LoadingFinish = false;
-
+        public bool isDynamic = false;
         /// <summary>
         /// INITIAL - SUPPLIER
         /// E, G, I, K, M
@@ -45,17 +45,17 @@ namespace GM_SmartTryout
         {
             // Put your code here but leaving empty works just fine
         }
-        public DynamicPage()
+        public CheckSheetPage()
         {
             InitializeComponent();
 
         }
 
-        public DynamicPage(ProjectModel param, ConditionModel cm)
+        public CheckSheetPage(ProjectModel param, ConditionModel cm, bool isdynamic)
         {
             InitializeComponent();
             _pvm = new PickerViewModel();
-
+            isDynamic = isdynamic;
             SelectedProject = param;
 
             if (cm.IF == "Initial")
@@ -160,7 +160,7 @@ namespace GM_SmartTryout
 
 
 
-            _pvm.CheckList = Provider.CheckContentList(SelectedProject, true, workColumn);
+            _pvm.CheckList = Provider.CheckContentList(SelectedProject, isDynamic, workColumn);
           
 
             Contentlist.BindingContext = _pvm;
@@ -179,8 +179,9 @@ namespace GM_SmartTryout
 
                 try
                 {
-                    Provider.SaveCheckList(SelectedProject, _pvm.CheckList, excelEngine, true, workColumn);
+                    Provider.SaveCheckList(SelectedProject, _pvm.CheckList, excelEngine, isDynamic, workColumn);
                     await DisplayAlert("완료", "저장이 완료되었습니다.", "확인");
+                    await Navigation.PopAsync();
 
                 }
                 catch (Exception ex)

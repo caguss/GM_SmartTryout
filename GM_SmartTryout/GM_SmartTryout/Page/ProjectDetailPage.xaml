@@ -15,7 +15,7 @@
                 <Label x:Name="lbl_ProjectName" TranslationY="-50" Opacity="0"  Grid.Row="0" Grid.Column="0" FontSize="40" HorizontalOptions="Start" HorizontalTextAlignment="Start" FontAttributes="Bold" Text="PName" VerticalTextAlignment="Center" VerticalOptions="Center" />
             </Grid>
             <ScrollView VerticalOptions="FillAndExpand">
-                <StackLayout Spacing="60" Orientation="Vertical" Padding="40">
+                <StackLayout Spacing="50" Orientation="Vertical" Padding="40">
                     <StackLayout.Resources>
                         <ResourceDictionary>
                             <Style TargetType="Label">
@@ -28,7 +28,7 @@
                             </Style>
                             <Style TargetType="Frame">
                                 <Setter Property="CornerRadius" Value="20"></Setter>
-                                <Setter Property="HeightRequest" Value="120"></Setter>
+                                <Setter Property="HeightRequest" Value="100"></Setter>
                                 <Setter Property="BackgroundColor" Value="#494949"></Setter>
                             </Style>
                             <Style TargetType="StackLayout">
@@ -39,6 +39,15 @@
                             </Style>
                         </ResourceDictionary>
                     </StackLayout.Resources>
+                    <Frame>
+                        <StackLayout>
+                            <Image Source="alpha_v.png" />
+                            <Label Text="Vendor Survey"/>
+                        </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="VendorSurvay_Tapped"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
+                    </Frame>
                     <Frame>
                         <StackLayout>
                             <Image Source="alpha_f.png" />
@@ -68,9 +77,12 @@
                     </Frame>
                     <Frame>
                         <StackLayout>
-                            <Image Source="alpha_v.png" />
+                            <Image Source="alpha_e.png" />
                             <Label Text="View Excel"/>
                         </StackLayout>
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="ViewExcel_Tapped"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>
                     </Frame>
                     <Frame>
                         <StackLayout>

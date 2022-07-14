@@ -5,7 +5,7 @@
              xmlns:fonticons="clr-namespace:GM_SmartTryout.Fonts"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              BackgroundColor="{StaticResource colorBlackBackground}"
-             x:Class="GM_SmartTryout.DynamicPage"
+             x:Class="GM_SmartTryout.CheckSheetPage"
              NavigationPage.HasNavigationBar="False"
              mc:Ignorable="d">
 

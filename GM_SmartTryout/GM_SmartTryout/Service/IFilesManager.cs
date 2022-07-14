@@ -12,9 +12,9 @@ namespace GM_SmartTryout
         ProjectModel FileCreate(string filename, string templatepath);
         ObservableCollection<ProjectModel> ProjectList();
         bool DeleteProject(string filename);
-        string ZipProject(string filename);
-        string GetFileUri(string zippath);
-        Task LoadExcelData(string excelpath, string contentType, MemoryStream stream);
+        string GetFilePath(string filename);
+        void ViewExcel(string excelpath);
         void SaveExcel(string excelpath, String contentType, MemoryStream stream);
+        void ZipFile(string zippath, string projname);
     }
 }

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace GM_SmartTryout
@@ -10,7 +11,7 @@ namespace GM_SmartTryout
     {
         static IFilesManager ifm = DependencyService.Get<IFilesManager>();
         public static ExcelDetailModel SelectedExcelDetails = new ExcelDetailModel();
-
+        public static bool working = false;
         public static ProjectModel CreateProject(string projName, string templatePath)
         {
             try
@@ -168,9 +169,9 @@ namespace GM_SmartTryout
 
                     //FPR 리스트 목록화
 
-                    for (int i = 13; i < 57; i++)
+                    for (int i = 11; i < 56; i++)
                     {
-                        if (worksheet.Range[$"A{i}"].DisplayText != "")
+                        if (worksheet.Range[$"A{i}"].DisplayText != "" && worksheet.Range[$"A{i}"].CellStyle.Font.RGBColor.Name == "ff000000")
                         {
                             result.Add(new FPRModel
                             {
@@ -241,7 +242,7 @@ namespace GM_SmartTryout
 
                     for (int i = 11; i < 57; i++)
                     {
-                        if (worksheet.Range[$"A{i}"].DisplayText != "" || !worksheet.Range[$"A{i}"].Cells[0].IsMerged)
+                        if (worksheet.Range[$"A{i}"].DisplayText != "" && !worksheet.Range[$"A{i}"].Cells[0].IsMerged)
                         {
                             result.Add(new CheckModel
                             {
@@ -330,31 +331,34 @@ namespace GM_SmartTryout
             }
         }
 
-        public static string ZipProject(string foldername)
+        public static string GetFilePath(string foldername)
         {
             try
             {
-                return ifm.ZipProject(foldername);
+                return ifm.GetFilePath(foldername);
             }
             catch (Exception ex)
             {
                 return "";
             }
         }
-        public static string GetFileUri(string zippath)
+        public static bool ViewExcel(string excelpath)
         {
             try
             {
-                return ifm.GetFileUri(zippath);
+                ifm.ViewExcel(excelpath);
+                return true;
             }
             catch (Exception ex)
             {
-                return "";
+                return false;
             }
         }
 
-        public static void SaveVenderSurvey(ProjectModel selectedProject, VenderSurveyModel nowdata)
+
+        public static async Task SaveVenderSurvey(ProjectModel selectedProject, VenderSurveyModel nowdata)
         {
+            working = true;
             ExcelEngine excelEngine = new ExcelEngine();
             string excelname = selectedProject.ProjectName + ".xlsx";
 
@@ -397,7 +401,21 @@ namespace GM_SmartTryout
 
             }
 
+            working = false;
 
+        }
+
+        public static async Task<bool> ZipFile(string zippath, string projname)
+        {
+            try
+            {
+                ifm.ZipFile(zippath, projname);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
     }
 }

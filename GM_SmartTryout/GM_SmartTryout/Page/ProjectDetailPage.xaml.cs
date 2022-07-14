@@ -48,14 +48,30 @@ namespace GM_SmartTryout
         {
             try
             {
-                if (await DisplayAlert("확인", "현재까지의 프로젝트를 공유하시겠습니까?", "예", "아니오"))
+                string zippath;
+                switch (await DisplayActionSheet("어떤 파일을 공유하십니까?","취소", "", "사진", "엑셀"))
                 {
+                    case "사진":
+                        zippath = Provider.GetFilePath(selectedProject.foldername + "/Image");
 
-                    string projpath = Provider.ZipProject(selectedProject.foldername);
+                        await ExportUtilties.CompressAndExportFolder(zippath, selectedProject.ProjectName+"_Image");
+                        await ExportUtilties.ShareFile(zippath, selectedProject.ProjectName + "_Image");
 
-                    await ExportUtilties.CompressAndExportFolder(projpath, selectedProject.ProjectName);
-                    await DisplayAlert("완료", "압축이 완료되었습니다.", "확인");
+                        break;
+                    case "엑셀":
+                        zippath = Provider.GetFilePath(selectedProject.folderPath + "/" + selectedProject.ProjectName + ".xlsx");
+
+                        await Provider.ZipFile(zippath, selectedProject.ProjectName+"_Excel");
+                        await ExportUtilties.ShareFile(zippath, selectedProject.ProjectName+"_Excel");
+
+                        break;
+                    default:
+                        return;
+                        break;
                 }
+
+
+                await DisplayAlert("완료", "압축이 완료되었습니다.", "확인");
             }
             catch (Exception ex)
             {
@@ -64,7 +80,8 @@ namespace GM_SmartTryout
 
         }
         FPRPage FPRlistPage = null;
-        CheckSheetConditionPage VenderLoadingPage = null;
+        CheckSheetConditionPage ConditionLoadingPage = null;
+        VenderSurveyPage surveyloadingpage = null;
         private async void FPR_Tapped(object sender, EventArgs e)
         {
             popupLoadingView.IsVisible = true;
@@ -85,6 +102,7 @@ namespace GM_SmartTryout
                         popupLoadingView.IsVisible = false;
                         activityIndicator.IsRunning = false;
                         Navigation.PushAsync(FPRlistPage);
+                        FPRlistPage = null;
                         return false;
                     }
                     else
@@ -103,19 +121,20 @@ namespace GM_SmartTryout
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                if (VenderLoadingPage == null)
+                if (ConditionLoadingPage == null)
                 {
-                    VenderLoadingPage = new CheckSheetConditionPage(selectedProject, "D");
+                    ConditionLoadingPage = new CheckSheetConditionPage(selectedProject, true);
                     return true; // True = Repeat again, False = Stop the timer
 
                 }
                 else
                 {
-                    if (VenderLoadingPage.LoadingFinish)
+                    if (ConditionLoadingPage.LoadingFinish)
                     {
                         popupLoadingView.IsVisible = false;
                         activityIndicator.IsRunning = false;
-                        Navigation.PushAsync(VenderLoadingPage);
+                        Navigation.PushAsync(ConditionLoadingPage);
+                        ConditionLoadingPage = null;
                         return false;
                     }
                     else
@@ -132,19 +151,56 @@ namespace GM_SmartTryout
 
             Device.StartTimer(TimeSpan.FromSeconds(1), () =>
             {
-                if (VenderLoadingPage == null)
+                if (ConditionLoadingPage == null)
                 {
-                    VenderLoadingPage = new CheckSheetConditionPage(selectedProject, "S");
+                    ConditionLoadingPage = new CheckSheetConditionPage(selectedProject, false);
                     return true; // True = Repeat again, False = Stop the timer
 
                 }
                 else
                 {
-                    if (VenderLoadingPage.LoadingFinish)
+                    if (ConditionLoadingPage.LoadingFinish)
                     {
                         popupLoadingView.IsVisible = false;
                         activityIndicator.IsRunning = false;
-                        Navigation.PushAsync(VenderLoadingPage);
+                        Navigation.PushAsync(ConditionLoadingPage);
+                        ConditionLoadingPage = null;
+                        return false;
+                    }
+                    else
+                    {
+                        return true; // True = Repeat again, False = Stop the timer
+                    }
+                }
+            });
+        }
+
+        private void ViewExcel_Tapped(object sender, EventArgs e)
+        {
+            Provider.ViewExcel(selectedProject.folderPath + "/" + selectedProject.ProjectName + ".xlsx");
+        }
+
+        private void VendorSurvay_Tapped(object sender, EventArgs e)
+        {
+            popupLoadingView.IsVisible = true;
+            activityIndicator.IsRunning = true;
+
+            Device.StartTimer(TimeSpan.FromSeconds(1), () =>
+            {
+                if (surveyloadingpage == null)
+                {
+                    surveyloadingpage = new VenderSurveyPage(selectedProject);
+                    return true; // True = Repeat again, False = Stop the timer
+
+                }
+                else
+                {
+                    if (surveyloadingpage.LoadingFinish)
+                    {
+                        popupLoadingView.IsVisible = false;
+                        activityIndicator.IsRunning = false;
+                        Navigation.PushAsync(surveyloadingpage);
+                        surveyloadingpage = null;
                         return false;
                     }
                     else

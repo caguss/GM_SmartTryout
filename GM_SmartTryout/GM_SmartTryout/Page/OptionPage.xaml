@@ -28,8 +28,8 @@
                     <Button Text="Change" Clicked="Change_Clicked" HorizontalOptions="EndAndExpand" FontSize="30" WidthRequest="200" HeightRequest="70" CornerRadius="15" TextColor="White" BackgroundColor="#747171"></Button>
                 </StackLayout>
                 <StackLayout>
-                    <Frame CornerRadius="15" HeightRequest="50" BackgroundColor="#aba9a9" Padding="10,0" >
-                        <Label x:Name="txt_ExcelName" Text="test" TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
+                    <Frame CornerRadius="15" HeightRequest="120" BackgroundColor="#aba9a9" Padding="10,0" >
+                        <Label x:Name="txt_ExcelName" Text="프로그램 사용을 위해 템플릿을 추가해주세요." TextColor="Black" FontSize="25" VerticalTextAlignment="Center"></Label>
                     </Frame>
                 </StackLayout>
                 <StackLayout Orientation="Horizontal" Padding="0,40">

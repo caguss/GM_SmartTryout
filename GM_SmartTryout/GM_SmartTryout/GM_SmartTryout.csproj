@@ -39,8 +39,11 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Update="Page\DynamicPage.xaml.cs">
-      <DependentUpon>DynamicPage.xaml</DependentUpon>
+    <Compile Update="Page\VenderSurvayPage.xaml.cs">
+      <DependentUpon>VenderSurvayPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Update="Page\CheckSheetPage.xaml.cs">
+      <DependentUpon>CheckSheetPage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Page\OptionPage.xaml.cs">
       <DependentUpon>OptionPage.xaml</DependentUpon>
